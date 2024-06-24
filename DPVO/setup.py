@@ -25,11 +25,12 @@ setup(
         CUDAExtension('cuda_ba',
                       sources=['dpvo/fastba/ba.cpp', 'dpvo/fastba/ba_cuda.cu'],
                       extra_compile_args={
-                          'cxx':['-O3']
+                          'cxx':['-O3'],
+                          'nvcc':['-O3'],
                           }),
         CUDAExtension('lietorch_backends',
                       include_dirs=[
-                          #combines the ROOT with th following to get two new paths
+                          #combines the ROOT with following to get two new paths
                           osp.join(ROOT, 'dpvo/lietorch/include'),
                           osp.join(ROOT,'thirdparty/eigen-3.4.0')],
                       sources=[
@@ -39,6 +40,7 @@ setup(
                     extra_compile_args={'cxx':['-O3'],'nvcc':['-O3'],}),
     ],
     cmdclass={
+        #compiles those packages above. 
         'build_ext':BuildExtension
         }
 )
